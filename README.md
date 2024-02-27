@@ -1,35 +1,22 @@
-# repaso examen final
+<script setup>
+import axios from 'axios';
+import { ref } from 'vue';
 
-This template should help get you started developing with Vue 3 in Vite.
+const apiComarcas = 'https://analisi.transparenciacatalunya.cat/resource/2gws-ubmt.json'
 
-## Recommended IDE Setup
+const comarcas = ref([''])
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+axios.get(apiComarcas).then((resp)=>{
+  comarcas.value = resp.data
+})
 
-## Customize configuration
+</script>
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+<template>
+  <h1>axios</h1>
 
-## Project Setup
+  <ul>
+    <li v-for="comarca in comarcas" :key="comarca.codi_comarca">{{ comarca.comarca }}</li>
+  </ul>
 
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+</template>
